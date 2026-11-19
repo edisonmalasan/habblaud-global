@@ -4,6 +4,7 @@ import { NAME_MAX, parseAppearanceParts, parseCharacterName, parseSeed } from '.
 import type { AccessInfo, AgentInfo, ModSummary, OfficeSnapshot, SourceInfo, UpdateStatus } from '../../shared/types';
 import type { AccountsService } from '../accounts/service';
 import { handleCodexEvent } from '../codex/http';
+import { harnessInventory } from '../harnesses/detect';
 import type { DayStatsService } from '../history/daystats';
 import type { Office } from '../model/office';
 import type { CodexLive } from '../sources/codex/live';
@@ -358,6 +359,11 @@ export function createApiHandler(deps: ApiDeps): (req: IncomingMessage, res: Ser
     if (path === '/api/snapshot') {
       if (!isRead) methodNotAllowed(res, 'GET');
       else sendJson(res, 200, hub.current());
+      return true;
+    }
+    if (path === '/api/harnesses') {
+      if (!isRead) methodNotAllowed(res, 'GET');
+      else sendJson(res, 200, harnessInventory());
       return true;
     }
     if (path === '/api/health') {

@@ -10,6 +10,14 @@ do meio (0.**3**.0).
 
 ## [Não lançado]
 
+### Adicionado
+
+- **Detecção multi-harness.** O `habblaud-global` agora inventaria nove harnesses de código com agente (Claude Code,
+  Codex, Opencode, Gemini, Cline, Hermes Agent, Kilo Code, Kimi Code e Orca ADE) a partir de sinais locais — pastas de
+  configuração, variáveis de ambiente e executáveis no `PATH`, sem ler credenciais nem fazer chamadas de rede. O
+  inventário completo, com `detected` e `signals`, sai em `GET /api/harnesses`; os sete harnesses sem adapter têm
+  branch própria e seguem marcados como `planned`. Ver [`docs/multi-harness.md`](docs/multi-harness.md).
+
 ## [1.0.3] - 2026-10-16
 
 ### Corrigido

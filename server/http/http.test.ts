@@ -140,6 +140,18 @@ describe('API HTTP', () => {
     expect(health).toMatchObject({ ok: true, version: '9.9.9', demo: false, docker: false, terminal: false, accounts: [{ id: '.claude', usageStatus: 'disabled' }] });
   });
 
+  it('GET /api/harnesses devolve o inventário multi-harness', async () => {
+    const res = await fetch(`${env.base}/api/harnesses`);
+    expect(res.status).toBe(200);
+    expect(res.headers.get('cache-control')).toBe('no-store');
+    const body = (await res.json()) as Array<{ id: string; detected: boolean; signals: string[] }>;
+    expect(body.map((h) => h.id)).toEqual([
+      'claude', 'codex', 'opencode', 'gemini', 'cline', 'hermes-agent', 'kilo-code', 'kimi-code', 'orca-ade',
+    ]);
+    expect(body.every((h) => typeof h.detected === 'boolean' && Array.isArray(h.signals))).toBe(true);
+    expect((await fetch(`${env.base}/api/harnesses`, { method: 'POST', headers: JSON_HEADERS, body: '{}' })).status).toBe(405);
+  });
+
   it('GET /api/updates e POST /api/updates/check sem verificador: desligado', async () => {
     expect(await (await fetch(`${env.base}/api/updates`)).json()).toEqual({ version: '9.9.9', state: 'off', available: false });
     const check = await fetch(`${env.base}/api/updates/check`, { method: 'POST', headers: JSON_HEADERS, body: '{}' });

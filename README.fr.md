@@ -39,6 +39,11 @@ Tout tourne sur votre machine, en lisant les fichiers que Claude Code écrit dé
 `alias` de votre shell, pour attribuer une lettre à chaque compte). Rien ne quitte l'ordinateur : Habblaud ne lit
 aucun identifiant et ne fait aucun appel externe.
 
+**Multi-harness :** ce fork détecte localement neuf harnesses de code avec agent (Claude Code, Codex, Opencode, Gemini,
+Cline, Hermes Agent, Kilo Code, Kimi Code et Orca ADE). `GET /api/harnesses` indique ceux qui sont présents sur cette
+machine. Seuls Claude Code et Codex disposent d'un adaptateur d'agents fonctionnel ; les sept autres ont leur propre
+branche. Voir [docs/multi-harness.md](docs/multi-harness.md).
+
 ## Sommaire
 
 - [À quoi ça ressemble](#à-quoi-ça-ressemble)

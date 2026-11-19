@@ -78,6 +78,7 @@ festa) ou 10 min. Push só avisa. O mesmo CI visto de novo em 2 min não repete 
 | `GET /api/timeline/days` | `{recording, days:[{day, bytes, from, to}]}`: dias gravados para o timelapse, do mais recente ao mais antigo |
 | `GET /api/timeline/:dia` | o arquivo do dia (`AAAA-MM-DD`) em JSONL (`application/x-ndjson`, gzip se aceito); 400 para dia inválido, 404 sem gravação |
 | `GET /api/health` | `{ok, version, demo, docker, terminal, permissions, messages, updates:{state, latest, available}, sources, accounts:[{id, usageStatus}]}` |
+| `GET /api/harnesses` | inventário multi-harness: `[{id, name, kind:'adapter'\|'planned', provider?, detected, signals:[]}]` dos nove harnesses suportados, na ordem estável do registro; detecção local (pastas, env e binários), sem ler credenciais — ver [`docs/multi-harness.md`](../docs/multi-harness.md) |
 | `POST /api/demo` | `{enabled: boolean}` liga/desliga agentes simulados (misturados aos reais) |
 | `GET /api/mod/summary?account=&session=` | `ModSummary` para o mod do Claude Code: `{version, agents, working, waiting:[{id, name, room, account, waitingFor, since, answerable}]}`, sem o demo e sem a sessão de quem pergunta (ver abaixo) |
 | `GET /api/updates` | `{version, ...UpdateStatus}`: versão em uso e o resultado da verificação de versão nova (ver abaixo) |

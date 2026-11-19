@@ -37,6 +37,11 @@ moedinhas no jokenpô. Veja em [Vida social](#vida-social).
 Tudo roda na sua máquina, lendo os arquivos que o próprio Claude Code já grava (e só as linhas `alias` do seu shell,
 para dar a letra de cada conta). Nada sai do computador: o Habblaud não lê credenciais nem faz chamadas externas.
 
+**Multi-harness:** este fork detecta localmente nove harnesses de código com agente (Claude Code, Codex, Opencode,
+Gemini, Cline, Hermes Agent, Kilo Code, Kimi Code e Orca ADE). `GET /api/harnesses` informa quais estão presentes nesta
+máquina. Só Claude Code e Codex têm adapter de agentes funcionando; os outros sete têm branch própria. Veja
+[docs/multi-harness.md](docs/multi-harness.md).
+
 ## Sumário
 
 - [Como é](#como-é)

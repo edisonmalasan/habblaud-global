@@ -38,6 +38,11 @@ Everything runs on your machine, reading the files Claude Code itself already wr
 your shell, to give each account its letter). Nothing leaves the computer: Habblaud doesn't read credentials or make
 external calls.
 
+**Multi-harness:** this fork adds local detection of nine coding harnesses (Claude Code, Codex, Opencode, Gemini,
+Cline, Hermes Agent, Kilo Code, Kimi Code and Orca ADE). `GET /api/harnesses` reports which ones are present on this
+machine. Only Claude Code and Codex have working agent adapters today; the other seven have dedicated branches. See
+[docs/multi-harness.md](docs/multi-harness.md).
+
 ## Contents
 
 - [What it looks like](#what-it-looks-like)
