@@ -2,6 +2,8 @@
 
 Obrigado por querer contribuir com o Habblaud! Relatos de bugs, ideias e melhorias são bem-vindos.
 
+> **Atribuição / Attribution:** este projeto nasceu do [Habblaud](https://github.com/marmottajr/habblaud), do Márcio Junior (MIT), com integração original para **Claude Code** e **Codex**. O objetivo aqui é estender o escritório a mais harnesses/providers. Veja [ATTRIBUTION.md](ATTRIBUTION.md).
+
 ## Antes de começar
 
 - Para bugs e ideias, procure nas [issues](https://github.com/marmottajr/habblaud/issues) se o assunto já foi registrado.
