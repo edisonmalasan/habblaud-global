@@ -1721,6 +1721,7 @@ export const EN: Readonly<Record<string, string>> = {
   "{0} é uma pasta do Codex, não do Claude Code: fica fora das contas do Claude Code.": "{0} is a Codex folder, not a Claude Code one: it stays out of the Claude Code accounts.",
   "   Conta {0} ({1}): {2} sessão(ões) aberta(s) · uso: {3} · {4}": "   Account {0} ({1}): {2} open session(s) · usage: {3} · {4}",
   "   Codex: {0} conta(s), {1} sessão(ões) aberta(s).": "   Codex: {0} account(s), {1} open session(s).",
+  "   Opencode: {0} sessão(ões) aberta(s) em {1}.": "   Opencode: {0} open session(s) in {1}.",
   "   Conta {0} do Codex ({1}): uso: {2} · {3}": "   Codex account {0} ({1}): usage: {2} · {3}",
   "   Codex: {0}.": "   Codex: {0}.",
   "nenhuma pasta do Codex encontrada (defina HABBLAUD_CODEX_DIRS)": "no Codex folder found (set HABBLAUD_CODEX_DIRS)",

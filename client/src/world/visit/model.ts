@@ -101,7 +101,7 @@ export function agentRow(a: WorldAgent): VisitAgentRow {
     id: worldId(a.id),
     name: typeof a.name === 'string' && a.name ? a.name : tr('Agente'),
     role: a.kind === 'sub' ? tr('Subagente') : tr('Agente principal'),
-    tool: WORLD_TOOL_ACCOUNTS[provider].name,
+    tool: WORLD_TOOL_ACCOUNTS[provider]!.name,
     status,
     statusText: statusText(status),
   };

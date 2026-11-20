@@ -49,7 +49,9 @@ export function isWorldId(id: string): boolean {
 }
 
 /** Contas fictícias da visita, uma por ferramenta: só o nome da ferramenta, a letra e a cor (sem e-mail nem uso). */
-export const WORLD_TOOL_ACCOUNTS: Readonly<Record<Provider, { short: string; name: string; color: string }>> = {
+// A visita ao mundo continua com as duas Ferramentas de origem; providers novos (ex.: opencode) são
+// coercias para claude aqui até o protocolo do World os conhecer (o escritório LOCAL não usa esta tabela).
+export const WORLD_TOOL_ACCOUNTS: Readonly<Partial<Record<Provider, { short: string; name: string; color: string }>>> = {
   claude: { short: 'C', name: 'Claude Code', color: '#f08a3c' },
   codex: { short: 'X', name: 'Codex', color: '#a77bf3' },
 };
@@ -221,9 +223,9 @@ function toolAccounts(agents: readonly AgentInfo[]): AccountInfo[] {
   return PROVIDERS.map((p) => ({
     id: worldId(p),
     provider: p,
-    short: WORLD_TOOL_ACCOUNTS[p].short,
-    name: WORLD_TOOL_ACCOUNTS[p].name,
-    color: WORLD_TOOL_ACCOUNTS[p].color,
+    short: WORLD_TOOL_ACCOUNTS[p]!.short,
+    name: WORLD_TOOL_ACCOUNTS[p]!.name,
+    color: WORLD_TOOL_ACCOUNTS[p]!.color,
     configDir: '',
     sessions: agents.filter((a) => a.kind === 'main' && a.provider === p).length,
     usageStatus: 'disabled' as const,

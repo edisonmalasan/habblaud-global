@@ -41,7 +41,7 @@ A dedicated branch is reserved for each harness/provider that will be added:
 
 Each branch holds the work needed to teach Habblaud how to read that harness's local session/activity data and render its agents in the office. Branches are intentionally kept separate until their integrations are ready.
 
-Local **detection** for all nine harnesses is already implemented on `main`: `GET /api/harnesses` reports which ones are installed, using only config-dir/env/binary presence. See [docs/multi-harness.md](docs/multi-harness.md). Detection works for the seven planned harnesses before their adapters exist.
+Local **detection** for all nine harnesses is already implemented on `main`: `GET /api/harnesses` reports which ones are installed, using only config-dir/env/binary presence. See [docs/multi-harness.md](docs/multi-harness.md). Opencode also has a local **agent source** on `main` (read-only SQLite session metadata); the other harnesses remain detected-but-planned until their adapters are built on their branches.
 
 ## Trademarks / Marcas
 

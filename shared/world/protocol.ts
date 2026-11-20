@@ -502,7 +502,7 @@ export interface WorldAgent {
   id: string;                 // "a_" + 8 hex aleatórios; novo quando o agente chega e a cada 24 h ± 6 h
   kind: 'main' | 'sub';
   parentId?: string;          // sub: id do agente que o chamou (ausente se o pai não está no pacote)
-  provider: 'claude' | 'codex';
+  provider: 'claude' | 'codex' | 'opencode';
   status: WorldAgentStatus;   // sem "desde quando": nenhum tempo sai (seção 3.5)
   look: 'f' | 'm';
   name: string;               // pickName(id do mundo): nunca o nome do escritório, editado ou não

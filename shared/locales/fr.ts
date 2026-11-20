@@ -1585,6 +1585,7 @@ export const FR: Readonly<Record<string, string>> = {
   "{0} é uma pasta do Codex, não do Claude Code: fica fora das contas do Claude Code.": "{0} est un dossier Codex, pas Claude Code : il est exclu des comptes Claude Code.",
   "   Conta {0} ({1}): {2} sessão(ões) aberta(s) · uso: {3} · {4}": "   Compte {0} ({1}) : {2} session(s) ouverte(s) · utilisation : {3} · {4}",
   "   Codex: {0} conta(s), {1} sessão(ões) aberta(s).": "   Codex : {0} compte(s), {1} session(s) ouverte(s).",
+  "   Opencode: {0} sessão(ões) aberta(s) em {1}.": "   Opencode : {0} session(s) ouverte(s) dans {1}.",
   "   Conta {0} do Codex ({1}): uso: {2} · {3}": "   Compte Codex {0} ({1}) : utilisation : {2} · {3}",
   "   Codex: {0}.": "   Codex : {0}.",
   "nenhuma pasta do Codex encontrada (defina HABBLAUD_CODEX_DIRS)": "aucun dossier Codex trouvé (définissez HABBLAUD_CODEX_DIRS)",

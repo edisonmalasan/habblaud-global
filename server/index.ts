@@ -2,6 +2,7 @@
 // mantém o modelo do escritório e transmite via SSE. Sem dependências de runtime.
 //   npm run dev    -> tsx server/index.ts --dev (Vite em middleware mode, HMR no mesmo servidor)
 //   npm start      -> node dist/server/index.js (serve dist/client)
+import { existsSync } from 'node:fs';
 import http from 'node:http';
 import { join } from 'node:path';
 import { codexDirsRefused, isDefaultDir } from './accounts/detect';
@@ -37,6 +38,8 @@ import { ClaudeWatcher } from './sources/watcher';
 import { discoverCodexDirs } from './sources/codex/accounts';
 import { CodexHistory } from './sources/codex/history';
 import { CodexSource } from './sources/codex/source';
+import { defaultDbPath } from './sources/opencode/db';
+import { OpencodeSource } from './sources/opencode/source';
 import { createBuildReader, readBuildInfo } from './build';
 import { UpdateChecker } from './updates/checker';
 import { getLocale, tr } from '../shared/i18n';
@@ -138,6 +141,17 @@ const agents = new SourceSet([claude]);
 const codexDirs = config.codex ? discoverCodexDirs(process.env, config.home) : [];
 const codex = codexDirs.length ? new CodexSource({ accounts, office, dirs: codexDirs, env: process.env, home: config.home }) : undefined;
 if (codex) agents.add(codex);
+// OpenCode V2: sessões ficam no opencode.db local. Só liga se o banco existe (HABBLAUD_OPENCODE=0 desliga).
+// A conta é registrada aqui; a fonte lê só session_v2/session_message, sem credenciais.
+const opencodeDb = defaultDbPath(config.home);
+const opencodeDir = join(config.home, '.opencode');
+const opencodeOn = process.env.HABBLAUD_OPENCODE !== '0' && existsSync(opencodeDb);
+if (opencodeOn) {
+  const entries = accounts.setProviderAccounts('opencode', [
+    { dir: opencodeDir, detected: { id: '.opencode', configDir: opencodeDir, short: 'O', name: 'Opencode', color: '#5cc97b' } },
+  ]);
+  agents.add(new OpencodeSource({ office, dbPath: opencodeDb, accountId: entries[0].id }));
+}
 // Eventos dos hooks do Codex (POST /api/codex/events, mod/habblaud-codex/hook.mjs): vão para a fonte do Codex ao vivo
 // (CodexLive); sem ela (nenhuma pasta do Codex ou HABBLAUD_CODEX=0) a rota responde {ok: false}.
 const codexLive: CodexLive | undefined = codex;
@@ -490,6 +504,10 @@ server.listen(config.port, config.host, () => {
     }
   } else {
     log.info(tr('   Codex: {0}.', [config.codex ? tr('nenhuma pasta do Codex encontrada (defina HABBLAUD_CODEX_DIRS)') : tr('desligado (HABBLAUD_CODEX=0)')]));
+  }
+  if (opencodeOn) {
+    const open = agents.of('opencode')?.sources().reduce((n, s) => n + s.sessions, 0) ?? 0;
+    log.info(tr('   Opencode: {0} sessão(ões) aberta(s) em {1}.', [open, opencodeDb]));
   }
   if (office.isDemo()) log.info(tr('   Modo demonstração ligado (agentes simulados misturados aos reais).'));
   if (config.terminal) log.info(tr('   Terminal: ligado (acesso só local).'));

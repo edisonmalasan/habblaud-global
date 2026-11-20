@@ -15,7 +15,7 @@ Habblaud was born reading Claude Code's local files, then gained a second adapte
 | --- | --- | --- |
 | Claude Code | adapter | `claude` |
 | Codex | adapter | `codex` |
-| Opencode | planned | — |
+| Opencode | adapter (local) | `opencode` |
 | Gemini | planned | — |
 | Cline | planned | — |
 | Hermes Agent | planned | — |
@@ -23,7 +23,13 @@ Habblaud was born reading Claude Code's local files, then gained a second adapte
 | Kimi Code | planned | — |
 | Orca ADE | planned | — |
 
-"Planned" means detection works, but no agent source/history adapter exists yet. Each of those harnesses has its own branch (`opencode`, `gemini`, `cline`, `hermes-agent`, `kilo-code`, `kimi-code`, `orca-ade`) with the integration checklist.
+"Planned" means detection works, but no agent source/history adapter exists yet. Each of those harnesses has its own branch (`gemini`, `cline`, `hermes-agent`, `kilo-code`, `kimi-code`, `orca-ade`) with the integration checklist. Opencode's branch work has started on `main` with a local source (below).
+
+## Opencode agent source
+
+`server/sources/opencode/` reads the local OpenCode V2 database (`~/.local/share/opencode/opencode.db`) read-only. Only `session_v2` (session metadata) and `session_message` (the status of the latest tool call) are queried — no credentials, account tables, prompt text or network calls. Each non-archived session updated in the last 15 minutes becomes a main agent in the `.opencode` account; a running tool shows the agent as `working`, otherwise `idle`. Sessions that fall out of the window are closed with the normal office grace period.
+
+Requires Node with `node:sqlite` (Node 22.5+; unflagged in 23.4+). Set `HABBLAUD_OPENCODE=0` to disable the source. Detection of Opencode in the inventory still works when the source is disabled.
 
 ## Privacy
 

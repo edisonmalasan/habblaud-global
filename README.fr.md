@@ -41,7 +41,7 @@ aucun identifiant et ne fait aucun appel externe.
 
 **Multi-harness :** ce fork détecte localement neuf harnesses de code avec agent (Claude Code, Codex, Opencode, Gemini,
 Cline, Hermes Agent, Kilo Code, Kimi Code et Orca ADE). `GET /api/harnesses` indique ceux qui sont présents sur cette
-machine. Seuls Claude Code et Codex disposent d'un adaptateur d'agents fonctionnel ; les sept autres ont leur propre
+machine. Claude Code, Codex et Opencode disposent d'un adaptateur d'agents fonctionnel ; les six autres ont leur propre
 branche. Voir [docs/multi-harness.md](docs/multi-harness.md).
 
 ## Sommaire

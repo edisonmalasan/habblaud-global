@@ -84,8 +84,8 @@ describe('officeFromBuilding', () => {
   it('contas fictícias, uma por ferramenta, sem e-mail, plano nem uso; meta mínimo, sem terminal nem mensagens', () => {
     const s = officeFromBuilding(sampleBuildingDetail(), T0, OPTS);
     expect(s.accounts).toEqual([
-      { id: 'world:claude', provider: 'claude', short: 'C', name: 'Claude Code', color: WORLD_TOOL_ACCOUNTS.claude.color, configDir: '', sessions: 2, usageStatus: 'disabled' },
-      { id: 'world:codex', provider: 'codex', short: 'X', name: 'Codex', color: WORLD_TOOL_ACCOUNTS.codex.color, configDir: '', sessions: 2, usageStatus: 'disabled' },
+      { id: 'world:claude', provider: 'claude', short: 'C', name: 'Claude Code', color: WORLD_TOOL_ACCOUNTS.claude!.color, configDir: '', sessions: 2, usageStatus: 'disabled' },
+      { id: 'world:codex', provider: 'codex', short: 'X', name: 'Codex', color: WORLD_TOOL_ACCOUNTS.codex!.color, configDir: '', sessions: 2, usageStatus: 'disabled' },
     ]);
     expect(s.meta).toEqual({
       demo: false,

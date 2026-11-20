@@ -39,7 +39,7 @@ para dar a letra de cada conta). Nada sai do computador: o Habblaud não lê cre
 
 **Multi-harness:** este fork detecta localmente nove harnesses de código com agente (Claude Code, Codex, Opencode,
 Gemini, Cline, Hermes Agent, Kilo Code, Kimi Code e Orca ADE). `GET /api/harnesses` informa quais estão presentes nesta
-máquina. Só Claude Code e Codex têm adapter de agentes funcionando; os outros sete têm branch própria. Veja
+máquina. Claude Code, Codex e Opencode têm adapter de agentes funcionando; os outros seis têm branch própria. Veja
 [docs/multi-harness.md](docs/multi-harness.md).
 
 ## Sumário

@@ -40,7 +40,7 @@ external calls.
 
 **Multi-harness:** this fork adds local detection of nine coding harnesses (Claude Code, Codex, Opencode, Gemini,
 Cline, Hermes Agent, Kilo Code, Kimi Code and Orca ADE). `GET /api/harnesses` reports which ones are present on this
-machine. Only Claude Code and Codex have working agent adapters today; the other seven have dedicated branches. See
+machine. Claude Code, Codex and Opencode have working agent adapters; the other six have dedicated branches. See
 [docs/multi-harness.md](docs/multi-harness.md).
 
 ## Contents
