@@ -2,6 +2,7 @@
 import type { AgentStatus } from '../../../shared/types';
 import type { HelpSection } from './context';
 import { h, iconButton, prefersReducedMotion } from './dom';
+import { fetchHarnesses, harnessRows, type HarnessRow } from '../net/harnesses';
 import { ICONS } from './icons';
 import { SHELL_STAGES, STATUS_LABEL } from './model';
 import { CODEX_LIVE_HINT } from './provider';
@@ -103,6 +104,8 @@ function keys(list: string[]): HTMLElement {
 export class HelpDialog {
   readonly el: HTMLDialogElement;
   private sections = new Map<HelpSection, HTMLElement>();
+  private harnessList?: HTMLUListElement;
+  private harnessLoaded = false;
 
   constructor() {
     const close = iconButton(ICONS.close, tr('Fechar ajuda'), () => this.el.close(), 'ui-icon-btn--sm');
@@ -160,6 +163,7 @@ export class HelpDialog {
         ),
         this.usageSection(),
         this.codexSection(),
+        this.harnessSection(),
       ),
     );
     // Clique no fundo (fora do conteúdo) fecha.
@@ -170,6 +174,7 @@ export class HelpDialog {
 
   open(section?: HelpSection): void {
     if (!this.el.open) this.el.showModal();
+    void this.loadHarnesses();
     const target = section ? this.sections.get(section) : undefined;
     if (!target) return;
     // Rola até a seção pedida e a destaca por um instante.
@@ -270,6 +275,50 @@ export class HelpDialog {
     );
     this.sections.set('codex', el);
     return el;
+  }
+
+  /** Inventário local dos harnesses: detectado aqui, sem ler credenciais nem conteúdo de sessão. */
+  private harnessSection(): HTMLElement {
+    const list = h('ul', { class: 'ui-help__list' }, h('li', { text: tr('Carregando…') }));
+    this.harnessList = list;
+    const el = h(
+      'section',
+      { class: 'ui-help__usage', attrs: { 'aria-labelledby': 'ui-help-harnesses' } },
+      h('h3', { text: tr('Harnesses detectados'), tabIndex: -1, attrs: { id: 'ui-help-harnesses' } }),
+      h('p', {
+        class: 'ui-help__lead',
+        text: tr('Nove harnesses são procurados nesta máquina: os dois com adapter (Claude Code e Codex) e os sete planejados, que têm branch própria. Só a presença local é verificada — nada é lido nem enviado.'),
+      }),
+      list,
+    );
+    this.sections.set('harnesses', el);
+    return el;
+  }
+
+  /** Busca o inventário uma vez, na primeira abertura; falhas podem ser tentadas de novo. */
+  private async loadHarnesses(): Promise<void> {
+    if (this.harnessLoaded || !this.harnessList) return;
+    try {
+      const entries = await fetchHarnesses();
+      this.harnessLoaded = true;
+      this.renderHarnesses(harnessRows(entries));
+    } catch {
+      this.harnessList.replaceChildren(h('li', { text: tr('Não foi possível carregar os harnesses detectados.') }));
+    }
+  }
+
+  private renderHarnesses(rows: readonly HarnessRow[]): void {
+    if (!this.harnessList) return;
+    this.harnessList.replaceChildren(
+      ...rows.map((r) =>
+        h(
+          'li',
+          { class: r.detected ? 'is-detected' : 'is-undetected' },
+          h('strong', { text: r.name }),
+          h('span', { text: ` — ${r.detected ? '✓' : '—'} ${tr(r.statusKey)} · ${tr(r.kindKey)}` }),
+        ),
+      ),
+    );
   }
 
   get isOpen(): boolean {

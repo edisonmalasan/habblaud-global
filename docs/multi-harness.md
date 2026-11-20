@@ -47,6 +47,8 @@ Returns the full inventory in stable registry order:
 
 `provider` is omitted for planned harnesses. The endpoint is read-only (GET/HEAD; other methods return 405) and honors the same host/remote rules as the rest of the API.
 
+The same inventory is shown in the app's Help dialog (`?` → **Harnesses detectados**), fetched on first open. Each row shows the harness name, whether it was detected and whether it has an adapter (`Adapter`) or is `Planned`. A detected harness does **not** mean an agent appears in the office — only Claude Code and Codex have agent sources so far.
+
 ## Tests
 
 ```
